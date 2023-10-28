@@ -1,3 +1,4 @@
+// Класс-родитель
 open class View {
     open fun show() {
         println("Отображение view элемента")
