@@ -1,7 +1,25 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import kotlin.concurrent.thread
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+fun main(args: Array<String>) {
+    val ascii = mutableMapOf(
+        "A" to 55,
+        "B" to 56,
+        "C" to 57,
+        "D" to 58,
+        "F" to 59,
+        "G" to 60,
+    )
+
+    thread {
+        for ((c, n) in ascii.entries) {
+            println(c to n)
+            Thread.sleep(500)
+        }
+    }
+
+    thread {
+        Thread.sleep(1000)
+
+        ascii.entries.remove(ascii.entries.last())
+    }
 }
