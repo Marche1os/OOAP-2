@@ -1,4 +1,4 @@
-В решении разделил операции сложения векторов типов <Vector<Int>> и Vector<Vector<Int>>. Представил тип Vector самостоятельным, а внутренний тип как просто тип, который может быть значением.
+В решении разделил операции сложения векторов типов `<Vector<Int>>` и `Vector<Vector<Int>>`. Представил тип Vector самостоятельным, а внутренний тип как просто тип, который может быть значением.
 
 Тип вектор, над которым можно производить операции сложения, назвал `AddableVector`.
 
@@ -26,13 +26,13 @@ open class Vector<T>(
 class IntegerValue(
     val value: Int
 ): MyAny(), Addable<IntegerValue> {
-    override fun plus(other: IntegerValue): IntegerValue = IntegerValue(this.value + other.value)
+    override fun plus(other: IntegerValue) = IntegerValue(this.value + other.value)
 }
 
-class AddableVector<T>(elements: List<T>) : Vector<T>(elements), Addable<AddableVector<T>> where T : General, T : Addable<T> {
-    override fun plus(other: AddableVector<T>): AddableVector<T> {
-        return AddableVector(super.plus(other)?.elements ?: emptyList())
-    }
+class AddableVector<T>(
+    elements: List<T>
+) : Vector<T>(elements), Addable<AddableVector<T>> where T : General, T : Addable<T> {
+    override fun plus(other: AddableVector<T>) = AddableVector(super.plus(other)?.elements ?: emptyList())
 }
 
 fun main() {
@@ -44,12 +44,5 @@ fun main() {
     val sum = outer1 + outer2
     // sum = AddableVector<AddableVector<IntegerValue>>
     // результат: 4 и 6
-    sum.let {
-        it.elements.forEach { nv ->
-            nv.elements.forEach { iv ->
-                println(iv.value)
-            }
-        }
-    }
 }
 ```
