@@ -1,25 +1,22 @@
-import kotlin.concurrent.thread
-
-fun main(args: Array<String>) {
-    val ascii = mutableMapOf(
-        "A" to 55,
-        "B" to 56,
-        "C" to 57,
-        "D" to 58,
-        "F" to 59,
-        "G" to 60,
-    )
-
-    thread {
-        for ((c, n) in ascii.entries) {
-            println(c to n)
-            Thread.sleep(500)
-        }
+open class Shape {
+    open fun draw() {
+        println("Abstract Shape")
     }
+}
 
-    thread {
-        Thread.sleep(1000)
-
-        ascii.entries.remove(ascii.entries.last())
+class Rectangle : Shape() {
+    override fun draw() {
+        println("Rectangle")
     }
+}
+
+fun main() {
+    var shape: Shape = Shape()
+    val rectangle: Rectangle = Rectangle()
+
+    shape.draw() //полиморфный вызов. переменная shape имеет тип [Shape], но ссылается на [Rectangle].
+
+    shape = rectangle
+
+    shape.draw()
 }
